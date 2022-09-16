@@ -1,5 +1,5 @@
 import datetime
-import os
+
 
 def parametrized_decor(param):
     def logger(some_function):
@@ -10,7 +10,9 @@ def parametrized_decor(param):
                               f'{wrapped_function}\n'
                 file.write(logg_string)
             return wrapped_function
+
         return decorator
+
     return logger
 
 
