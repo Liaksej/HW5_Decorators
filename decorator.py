@@ -14,7 +14,7 @@ def parametrized_decor(param):
     return logger
 
 
-@parametrized_decor(param='for_logger/logg.txt')
+@parametrized_decor(param='logg.txt')
 def marks_average_finder(name, array):
     for student in array:
         if student == name:
