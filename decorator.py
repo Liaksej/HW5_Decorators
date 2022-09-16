@@ -1,20 +1,20 @@
 import datetime
 import os
 
+def parametrized_decor(param):
+    def logger(some_function):
+        def decorator(*args, **kwargs):
+            with open(param, 'a') as file:
+                wrapped_function = some_function(*args, **kwargs)
+                logg_string = f'{datetime.datetime.now()} - {some_function.__name__} - {args, kwargs} - ' \
+                              f'{wrapped_function}\n'
+                file.write(logg_string)
+            return wrapped_function
+        return decorator
+    return logger
 
-def logger(some_function):
-    def decorator(*args, **kwargs):
-        with open('logg.txt', 'a') as file:
-            wrapped_function = some_function(*args, **kwargs)
-            logg_string = f'{datetime.datetime.now()} - {some_function.__name__} - {args, kwargs} - ' \
-                          f'{wrapped_function}\n'
-            file.write(logg_string)
-        print(f'Путь к логам: {os.path.abspath("logg.txt")}')
-        return wrapped_function
-    return decorator
 
-
-@logger
+@parametrized_decor(param='for_logger/logg.txt')
 def marks_average_finder(name, array):
     for student in array:
         if student == name:
